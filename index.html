@@ -1,0 +1,79 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tebak-tebakan Receh</title><style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 10% 0,#19264a,transparent 38%),radial-gradient(circle at 100% 100%,#35163c,transparent 35%),#080b14;color:#f4f7ff;font:16px system-ui;display:grid;place-items:center;padding:16px}.app{width:min(720px,100%)}header{text-align:center}small.tag{color:#50e6ff;border:1px solid #354867;border-radius:99px;padding:7px 12px;letter-spacing:2px}h1{font-size:clamp(30px,7vw,46px);margin:20px 0 6px}h1 span{color:#50e6ff}.muted{color:#9eabc4}.card{background:linear-gradient(145deg,#141d30,#0d1321);border:1px solid #2b3851;border-radius:24px;padding:clamp(18px,4vw,30px);box-shadow:0 20px 70px #0008}.top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}.pill{background:#0a1020;border:1px solid #2c3b55;border-radius:12px;padding:9px 12px;color:#cad5e9;font-size:13px}.pill b{color:#ffd166}.progress{height:8px;background:#27334a;border-radius:20px;margin:16px 0 24px;overflow:hidden}.bar{height:100%;width:0;background:linear-gradient(90deg,#50e6ff,#a78bfa,#ff5e91);transition:width .3s}.qnum{color:#50e6ff;font-weight:900;letter-spacing:2px;font-size:12px}.question{font-size:clamp(22px,5vw,32px);font-weight:850;line-height:1.3;margin:12px 0 22px;min-height:75px}form{display:flex;gap:10px;flex-wrap:wrap}input{flex:1;min-width:160px;background:#070c17;border:1px solid #35435e;border-radius:13px;padding:15px;color:white;font-size:16px;outline:none}input:focus{border-color:#50e6ff}button{cursor:pointer;border:0;border-radius:13px;padding:13px 16px;font-weight:850;transition:.15s}button:hover{filter:brightness(1.13);transform:translateY(-1px)}.primary{background:linear-gradient(100deg,#50e6ff,#a4efff);color:#07111d}.secondary{background:#1a2538;border:1px solid #35435e;color:#e0e8f8}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.feedback{display:none;margin-top:16px;padding:15px;border-radius:14px;font-weight:800;line-height:1.5}.feedback.show{display:block;animation:pop .25s}.bad{background:#42182b;border:1px solid #ff5e91;color:#ffd1df}.near{background:#3b2b13;border:1px solid #ffd166;color:#ffe9b5}.good{background:#103629;border:1px solid #61f2a2;color:#caffdf}.shake{animation:shake .35s}.troll{display:inline-block;animation:wobble .4s infinite}@keyframes pop{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}@keyframes shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}@keyframes wobble{25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}.foot{text-align:center;font-size:12px;color:#8998b4;margin-top:18px}.modal{position:fixed;inset:0;display:none;place-items:center;background:#030611ee;padding:20px;z-index:10}.modal.open{display:grid}.win{width:min(480px,100%);text-align:center;background:linear-gradient(145deg,#202a46,#111522);border:1px solid #76643b;border-radius:25px;padding:30px 22px;animation:pop .4s;box-shadow:0 0 80px #ffd16622}.trophy{font-size:68px;animation:bounce .8s infinite alternate}@keyframes bounce{to{transform:translateY(-9px) rotate(5deg)}}.win h2{font-size:clamp(28px,7vw,42px);color:#ffd166;margin:8px 0}.spark{font-size:24px;letter-spacing:5px}.status{font-size:12px;color:#9eabc4}@media(max-width:520px){form button{width:100%}}
+</style></head><body><div class="app"><header><small class="tag">NEON BRAIN ROT • EDITION</small><h1>TEBAK-TEBAKAN <span>RECEH</span> 🗿</h1><p class="muted">Plesetan boleh, yang penting maksudnya nyambung.</p></header><section class="card" id="card"><div class="top"><div class="pill">🔥 Benar: <b id="score">0</b></div><div class="pill">🏆 Progress: <b id="prog">0/10</b></div><div class="status" id="audioStatus">🔈 Backsound mati</div></div><div class="progress"><div class="bar" id="bar"></div></div><div class="qnum" id="qnum">SOAL 1</div><div class="question" id="question"></div><form id="form"><input id="answer" placeholder="Tulis jawaban lu..." autocomplete="off"><button class="primary">JAWAB ➜</button></form><div id="feedback" class="feedback"></div><div class="actions"><button class="secondary" id="start">↻ MULAI / ULANGI</button><button class="secondary" id="hint">💡 CLUE</button><button class="secondary" id="sound">🔊 AKTIFKAN BGM</button><button class="secondary" id="skip">LEWATI ↷</button></div><p class="foot">Audio mulai setelah tombol BGM ditekan. Jawaban plesetan yang masuk akal bisa diterima.</p></section></div>
+<div class="modal" id="modal"><div class="win"><div class="spark">✨🎉✨🎊✨</div><div class="trophy">🏆</div><h2>CONGRATULATIONS!</h2><p id="winText">10 JAWABAN BENAR!</p><p class="muted">Otak lu ternyata masih nyala juga, bro 😭🔥</p><button class="primary" id="continue">LANJUT LEVEL 🚀</button></div></div>
+<audio id="s1" src="https://files.catbox.moe/xixtc6.mp3" preload="auto"></audio><audio id="s2" src="https://files.catbox.moe/gyw8kx.mp3" preload="auto" loop></audio>
+<script>
+const data=[
+["Bambang tabung gas.",["bambang tabung gas"],"Pembuka absurd, jawabannya memang kalimat itu."],
+["Kesenian apa yang selalu dilakukan nasabah bank?",["tari tunai"],"Ada hubungannya dengan uang."],
+["Kenapa kucing nggak dipenjara pas jadi maling?",["kucing ga wrong","kucing nggak wrong","karena kucing ga wrong"],"Plesetan bahasa Inggris: wrong."],
+["Kalau kijang sama kuda tabrakan, yang mati siapa?",["supirnya","sopirnya","pengemudinya"],"Yang mengendarai kendaraan."],
+["Pocong apa yang paling favorit ibu-ibu?",["pocongan harga","potongan harga","diskon"],"Yang dicari saat belanja."],
+["Apa persamaan cokelat dan kuburan?",["sama sama band terkenal","band terkenal"],"Plesetan nama band."],
+["Hewan apa yang hobi telat ke sekolah?",["kaki seribu"],"Kelamaan pakai sepatunya."],
+["Gendang apa yang nggak bisa dipukul?",["gendang telinga","telinga"],"Bagian tubuh."],
+["Warna apa yang paling nggak peduli?",["biru dont care","biru don't care"],"Warna + kalimat bahasa Inggris."],
+["Kenapa harus berdoa sebelum minum air?",["tiga jin","dua hidrojin dan satu oksijin","di dalam air ada tiga jin"],"Plesetan unsur kimia air."],
+["Apa yang kalau dipotong malah makin tinggi?",["celana"],"Salah satu pakaian."],
+["Kalau ditutup kelihatan, kalau dibuka malah nggak ada. Apa?",["pintu rel kereta api","pintu perlintasan kereta","palang pintu kereta"],"Ada di perlintasan kereta."],
+["Orang apa yang nggak pernah kebasahan waktu hujan?",["orang nggak hujan","orang ga hujan","orang tidak hujan"],"Dengar kalimatnya baik-baik."],
+["Kalau dibeli hitam, dibakar merah, dibuang abu-abu. Apa?",["arang"],"Bahan bakar untuk bakar-bakaran."],
+["Kenapa burung terbang ke selatan waktu musim dingin?",["kalau jalan kejauhan","karena kalau harus jalan kejauhan","kalau harus jalan jauh"],"Kalau nggak terbang, harus apa?"],
+["Gerakan apa yang paling susah dilakukan?",["move on","moveon"],"Melupakan masa lalu."],
+["Buah apa yang pernah menjajah Indonesia?",["terong belanda","terung belanda"],"Namanya ada negara Eropa."],
+["Sayur apa yang pintar nyanyi?",["kolplay","coldplay","kol play"],"Plesetan nama band."],
+["Apa perbedaan sepatu sama jengkol?",["sepatu disemir jengkol disemur","sepatu disemir sementara jengkol di semur"],"Satu disemir, satu dimasak."],
+["Apa perbedaan semut dan orang?",["orang bisa kesemutan tapi semut tidak bisa keorangan","kesemutan keorangan"],"Main kata dari 'kesemutan'."],
+["Kenapa Superman ada huruf S di bajunya?",["karena kalau ada ukuran m atau xl sudah pasti terlalu lebar","ukuran m atau xl terlalu lebar"],"Plesetan ukuran baju."],
+["Apa yang tambah dipukul malah tambah enak?",["sambal geprek","sambel geprek"],"Makanan yang diulek."],
+["Kenapa air mata warnanya bening?",["karena kalau hijau air matcha","kalau hijau air matcha","air matcha"],"Plesetan minuman hijau."],
+["Mata apa yang nggak bisa dipakein kacamata?",["mata kaki"],"Bagian tubuh di bawah."],
+["Lahir di Arab, gede di Arab, tapi nggak bisa bahasa Arab?",["unta"],"Hewan gurun."],
+["Ikan-ikan apa yang lucu?",["i kan aku","ikan aku"],"Pisahkan kata 'I kan aku'."],
+["Kenapa kerang hidupnya di air?",["karena kalau di darat jadi kering","di darat jadi kering"],"Jawabannya ada di kata kerang."],
+["Orang apa yang dibacok nggak mati?",["orang ga kena","orang nggak kena","orang tidak kena","nggak kena"],"Serangannya meleset."],
+["Burung apa yang kaya?",["burung belibis","belibis","bisa beli bis"],"Bisa beli kendaraan umum."],
+["Orang apa yang manjat pohon nggak naik-naik?",["orang ga jadi","orang nggak jadi","orang tidak jadi"],"Dia batal melakukan sesuatu."],
+["Orang apa yang ditembak nggak mati?",["orang pistol mainan","pistol mainan","senjata mainan"],"Pakai mainan."],
+["Kenapa dinamakan nasi goreng?",["karena dina lapar","dina lapar","karena dina lagi lapar"],"Nama orang + alasan lapar."],
+["Bakso apa yang sedih?",["bakso malang"],"Nama kota di Jawa Timur."],
+["Negara apa yang nggak pernah gagal?",["berhasil","brasil","brazil"],"Plesetan kata sukses dan nama negara."],
+["Hewan apa yang terdiri dari satu huruf?",["g ajah","gajah"],"Huruf G + 'ajah' jadi Gajah."]
+];
+const $=x=>document.getElementById(x), norm=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[’']/g,"").replace(/[^a-z0-9\s]/g," ").replace(/\s+/g," ").trim();
+let deck=[],i=0,score=0,streak=0,started=false,locked=false;
+function shuffle(a){for(let n=a.length-1;n>0;n--){let j=Math.floor(Math.random()*(n+1));[a[n],a[j]]=[a[j],a[n]]}return a}
+function start(){deck=shuffle(data.map(x=>x));i=0;score=0;streak=0;started=true;locked=false;$("score").textContent=0;$("prog").textContent="0/10";show()}
+function show(){if(i>=deck.length){deck=shuffle(data.map(x=>x));i=0}let d=deck[i];$("qnum").textContent=`SOAL ${i+1} / ${deck.length}`;$("question").textContent=d[0];$("answer").value="";$("feedback").className="feedback";$("bar").style.width=(streak%10*10)+"%";locked=false;$("answer").focus()}
+function feedback(type,txt){$("feedback").className="feedback show "+type;$("feedback").innerHTML=txt}
+function check(val,d){let v=norm(val),answers=d[1].map(norm);if(!v)return "bad";if(answers.includes(v)||answers.some(a=>a.length>7&&(v.includes(a)||a.includes(v)&&v.length>5)))return "good";
+ // Terima jawaban dengan susunan/kata berbeda jika inti maknanya sama.
+ // Normalisasi bahasa sehari-hari agar "kalo" dan "kalau", "ga" dan "nggak" dianggap setara.
+ const canon=s=>norm(s).replace(/\\bkalo\\b/g,"kalau").replace(/\\bgak\\b/g,"nggak").replace(/\\bga\\b/g,"nggak").replace(/\\benggak\\b/g,"nggak").replace(/\\bgitu\\b/g,"begitu");
+ const cv=canon(val);
+ const meaningful=s=>canon(s).split(" ").filter(w=>w.length>2);
+ for(const raw of d[1]){
+   const key=canon(raw), vw=meaningful(cv), kw=meaningful(key);
+   const matches=vw.filter(w=>kw.includes(w));
+   const coverage=matches.length/Math.max(kw.length,1);
+   if(matches.length>=2 && coverage>=0.55) return "good";
+ }
+const aliases=[["supirnya",["supir","sopir","pengemudi"]],["pocongan harga",["diskon","potongan harga"]],["gendang telinga",["telinga"]],["celana",["celana panjang","celana pendek"]],["arang",["arang kayu"]],["move on",["melupakan","lupain mantan"]],["terong belanda",["terung belanda"]],["kolplay",["coldplay"]],["mata kaki",["pergelangan kaki"]],["orang ga kena",["serangannya meleset","nggak kena"]],["burung belibis",["belibis","bisa beli bis"]],["orang ga jadi",["orang batal","batal manjat"]],["bakso malang",["bakso dari malang"]],["berhasil",["brasil","brazil"]]];
+if(aliases.some(([key,arr])=>d[1].map(norm).includes(norm(key))&&arr.some(a=>v.includes(norm(a)))))return "good";
+let words=answers.flatMap(a=>a.split(" ")).filter(w=>w.length>3);if(words.some(w=>v.includes(w)))return "near";return "bad"}
+$("form").addEventListener("submit",e=>{e.preventDefault();if(!started){start();return}if(locked)return;let d=deck[i],r=check($("answer").value,d);if(!$("answer").value.trim())return;
+if(r==="good"){score++;streak++;$("score").textContent=score;$("prog").textContent=(streak%10)+"/10";$("bar").style.width=((streak%10)*10)+"%";feedback("good","✅ NAHH GITU DONG! 🗿<br>Jawaban diterima, +1 poin!");locked=true;if(streak%10===0)setTimeout(()=>{$("winText").textContent=streak+" JAWABAN BENAR! KEREN JUGA LU!";$("modal").classList.add("open");party()},600);else setTimeout(()=>{i++;show()},2400)}
+else if(r==="near"){feedback("near","🤏 <span class='troll'>DIKIT LAGI WOI 😭</span><br>Masih agak nyambung. Coba lagi!");shake()}
+else{feedback("bad","❌ <span class='troll'>YAKIN LU?! OTAKNYA LAGI OFF? 🗿</span><br>Jawaban yang benar: <b>"+d[1][0]+"</b><br>Soal berikutnya sebentar lagi...");locked=true;shake();setTimeout(()=>{i++;show()},3200)}});
+function shake(){$("card").classList.remove("shake");void $("card").offsetWidth;$("card").classList.add("shake")}
+$("start").onclick=start;$("hint").onclick=()=>{if(!started)start();feedback("near","💡 CLUE: "+deck[i][2])};$("skip").onclick=()=>{if(!started)start();feedback("near","↪️ Kunci jawaban: <b>"+deck[i][1][0]+"</b>");locked=true;setTimeout(()=>{i++;show()},1000)};
+function party(){let colors=["#50e6ff","#a78bfa","#ff5e91","#ffd166","#61f2a2"];for(let n=0;n<80;n++){let e=document.createElement("i");e.style.cssText=`position:fixed;z-index:20;top:-20px;left:${Math.random()*100}vw;width:8px;height:12px;background:${colors[n%5]};pointer-events:none`;document.body.appendChild(e);let dur=1800+Math.random()*1600;e.animate([{transform:"translateY(0) rotate(0)",opacity:1},{transform:`translate(${(Math.random()-.5)*240}px,110vh) rotate(${Math.random()*800}deg)`,opacity:.2}],{duration:dur});setTimeout(()=>e.remove(),dur+50)}}
+$("continue").onclick=()=>{$("modal").classList.remove("open");i++;show()};
+// Alternating soundtrack blocks: track 1 plays once, then track 2 loops for the same length as track 1.
+const s1=$("s1"),s2=$("s2");let music=false,timer=null;
+function play1(){if(!music)return;clearTimeout(timer);s2.pause();s2.currentTime=0;s1.loop=false;$("audioStatus").textContent="🎵 Backsound 1/2";s1.play().catch(()=>$("audioStatus").textContent="Audio diblokir browser");}
+s1.addEventListener("ended",()=>{if(!music)return;let dur=(Number.isFinite(s1.duration)&&s1.duration>0)?s1.duration:180;s2.currentTime=0;s2.loop=true;$("audioStatus").textContent="🎶 Backsound 2/2 (diulang)";s2.play().catch(()=>{});clearTimeout(timer);timer=setTimeout(()=>{if(music)play1()},dur*1000)});
+$("sound").onclick=()=>{if(!music){music=true;$("sound").textContent="🔇 MATIKAN BGM";play1()}else{music=false;clearTimeout(timer);s1.pause();s2.pause();s1.currentTime=s2.currentTime=0;$("audioStatus").textContent="🔈 Backsound mati";$("sound").textContent="🔊 AKTIFKAN BGM"}};
+start();
+</script></body></html>
